@@ -165,7 +165,8 @@ def to_SoftMax( name, s_filer=10, offset="(0,0,0)", to="(0,0,0)", width=1.5, hei
     };
 """
 
-def to_Sum( name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+# Generic Basic math op
+def to_BaseMathOp(name, logo, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Ball={
@@ -173,11 +174,26 @@ def to_Sum( name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
         fill=\SumColor,
         opacity="""+ str(opacity) +""",
         radius="""+ str(radius) +""",
-        logo=$+$
+        logo=$"""+ str(logo) +"""$
         }
     };
 """
 
+# Sum
+def to_Sum(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+    return to_BaseMathOp(name, "+", offset, to, radius, opacity)
+
+# Substract
+def to_Diff(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+    return to_BaseMathOp(name, "-", offset, to, radius, opacity)
+
+# Divide
+def to_Div(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+    return to_BaseMathOp(name, "\div", offset, to, radius, opacity)
+
+# Multiply
+def to_Mult(name, offset="(0,0,0)", to="(0,0,0)", radius=2.5, opacity=0.6):
+    return to_BaseMathOp(name, "\times", offset, to, radius, opacity)
 
 def to_connection( of, to):
     return r"""
